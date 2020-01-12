@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React from "react";
 import classes from './AnswersList.module.css'
 import AnswerItem from "./AnswerItem/AnswerItem";
 
