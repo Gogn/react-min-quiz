@@ -5,7 +5,7 @@ const AnswerItem = props  => {
     const cls = [classes.AnswerItem] // Массив классов
 
     if (props.state) {
-        console.log(props.state)
+        console.log('AnswerItem: props.state: ' + props.state)
         cls.push(classes[props.state]) //Передаем в стиль для li success или error
     }
 
