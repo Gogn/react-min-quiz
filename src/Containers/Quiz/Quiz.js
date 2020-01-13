@@ -6,23 +6,12 @@ import FinishedQuiz from "../../Components/FinishedQuiz/FinishedQuiz";
 class Quiz extends Component {
   state = {
     results: {}, // { [id]: 'success' 'error' }
-    isFinished: false,
+    isFinished: true,
     activeQuestion: 0,
     answerState: null, // Для применения стилей в AnswerItem { [id]: 'success' 'error' }
     quiz: [
       {
         id: 1,
-        question: 'Как выйти из vim?',
-        rightAnswerId: 3,
-        answers: [
-          {text: 'Alt+F4', id: 1},
-          {text: '`Esc`', id: 2},
-          {text: ':q!', id: 3},
-          {text: 'Из vim нет выхода', id: 4},
-        ]
-      },
-      {
-        id: 2,
         question: 'Какая компания является разработчиком библиотеки React?',
         rightAnswerId: 2,
         answers: [
@@ -33,14 +22,25 @@ class Quiz extends Component {
         ]
       },
       {
+        id: 2,
+        question: 'Как выйти из vim?',
+        rightAnswerId: 3,
+        answers: [
+          {text: 'Alt+F4', id: 1},
+          {text: '`Esc`', id: 2},
+          {text: ':q!', id: 3},
+          {text: 'Из vim нет выхода', id: 4},
+        ]
+      },
+      {
         id: 3,
-        question: 'Вопрос 3?',
+        question: 'Что такое JSX?',
         rightAnswerId: 1,
         answers: [
-          {text: 'Microsoft', id: 1},
-          {text: 'Facebook', id: 2},
-          {text: 'Apple', id: 3},
-          {text: 'Amazon', id: 4},
+          {text: 'Расширение JavaScript, которое позволяет использовать схожий с HTML синтаксис для описания интерфейса', id: 1},
+          {text: 'То же самое, что XML', id: 2},
+          {text: 'Современная NoSQL СУБД', id: 3},
+          {text: 'Диалект Java', id: 4},
         ]
       },
     ]
