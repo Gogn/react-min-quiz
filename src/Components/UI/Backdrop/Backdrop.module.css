@@ -1,0 +1,15 @@
+.Backdrop{
+  z-index: 50;
+  background: rgba(0,0,0, .7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.shader{
+  background: rgba(162, 20, 0, 0.9);
+  transition-property: background;
+  transition-duration: 9s;
+}
