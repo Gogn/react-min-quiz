@@ -10,10 +10,8 @@ const Backdrop = props => {
 
   if (props.isOpen) {
     cls.push('shader')
-    console.log('asdasdasdasdasdasdsad')
   } else {
     cls.push('shader')
-    console.log('123213123')
   }
 
   return (
