@@ -4,6 +4,11 @@ object-assign
 @license MIT
 */
 
+/*!
+ * is.js 0.8.0
+ * Author: Aras Atasaygin
+ */
+
 /** @license React v16.12.0
  * react.production.min.js
  *
