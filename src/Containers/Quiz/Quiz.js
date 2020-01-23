@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import classes from './Quiz.module.css'
 import ActiveQuiz from "../../Components/ActiveQuiz/ActiveQuiz";
 import FinishedQuiz from "../../Components/FinishedQuiz/FinishedQuiz";
+import axios from '../../axios/axios-quiz'
+import Loader from "../../Components/UI/Loader/Loader";
 
 class Quiz extends Component {
   state = {
@@ -9,41 +11,8 @@ class Quiz extends Component {
     isFinished: false,
     activeQuestion: 0,
     answerState: null, // Для применения стилей в AnswerItem { [id]: 'success' 'error' }
-    quiz: [
-      {
-        id: 1,
-        question: 'Какая компания является разработчиком библиотеки React?',
-        rightAnswerId: 2,
-        answers: [
-          {text: 'Microsoft', id: 1},
-          {text: 'Facebook', id: 2},
-          {text: 'Apple', id: 3},
-          {text: 'Amazon', id: 4},
-        ]
-      },
-      {
-        id: 2,
-        question: 'Как выйти из vim?',
-        rightAnswerId: 3,
-        answers: [
-          {text: 'Alt+F4', id: 1},
-          {text: '`Esc`', id: 2},
-          {text: ':q!', id: 3},
-          {text: 'Из vim нет выхода', id: 4},
-        ]
-      },
-      {
-        id: 3,
-        question: 'Что такое JSX?',
-        rightAnswerId: 1,
-        answers: [
-          {text: 'Расширение JavaScript, которое позволяет использовать схожий с HTML синтаксис для описания интерфейса', id: 1},
-          {text: 'То же самое, что XML', id: 2},
-          {text: 'Современная NoSQL СУБД', id: 3},
-          {text: 'Диалект Java', id: 4},
-        ]
-      },
-    ]
+    quiz: [],
+    loading: true
   }
 
   onAnswerClickHandler = (answerId) => {
@@ -88,13 +57,6 @@ class Quiz extends Component {
         window.clearTimeout(timeout) //Очищение таймаута для предотвращения утечки памяти
       }, 200)
 
-      // } else {
-      //   results[answerId] = 'error'
-      //   this.setState({
-      //     answerState: {[answerId]: 'error'},
-      //     results
-      //   })
-      // }
 
     } else {
       // if (!results[answerId]) {
@@ -138,8 +100,18 @@ class Quiz extends Component {
     })
   }
 
-  componentDidMount() {
-    console.log('Quiz ID = ', this.props.match.params.id)
+  async componentDidMount() {
+    try {
+      const response = await axios.get(`/quizes/${this.props.match.params.id}.json`)
+      const quiz = response.data
+
+      this.setState({
+        quiz,
+        loading: false
+      })
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   render() {
@@ -149,7 +121,9 @@ class Quiz extends Component {
           <h1>Ответьте на все вопросы</h1>
 
           {
-            this.state.isFinished
+            this.state.loading
+              ? <Loader/>
+              : this.state.isFinished
               ? <FinishedQuiz
                 results={this.state.results}
                 quiz={this.state.quiz}

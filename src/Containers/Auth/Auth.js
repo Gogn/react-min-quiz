@@ -3,6 +3,7 @@ import classes from './Auth.module.css'
 import Button from '../../Components/UI/Button/Button'
 import Input from "../../Components/UI/Input/Input"
 import is from 'is_js'
+import axios from 'axios'
 
 export default class Auth extends Component {
 
@@ -36,19 +37,41 @@ export default class Auth extends Component {
     }
   }
 
-  loginHandler = () => {
+  loginHandler = async () => {
+    const authData = {
+      email: this.state.formControls.email.value,
+      password: this.state.formControls.password.value,
+      returnSecureToken: true
+    }
+    try {
+      const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAutWpLBopIEGajyXA_aw0aHGRg8x99VeU', authData)
 
+      console.log(response.data)
+    } catch (e) {
+      console.log(e)
+    }
   }
 
-  registerHandler = () => {
+  registerHandler = async () => {
+    const authData = {
+      email: this.state.formControls.email.value,
+      password: this.state.formControls.password.value,
+      returnSecureToken: true
+    }
+    try {
+      const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAutWpLBopIEGajyXA_aw0aHGRg8x99VeU', authData)
 
+      console.log(response.data)
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   submitHandler = (event) => {
     event.preventDefault()
   }
 
-  validateControl (value, validation) {
+  validateControl(value, validation) {
     if (!validation) {
       return true //Если параметры не были переданы - не валидировать
     }
@@ -71,8 +94,8 @@ export default class Auth extends Component {
   }
 
   onChangeHandler = (event, controlName) => {
-    const formControls = { ...this.state.formControls } //Копия state
-    const control = { ...formControls[controlName] }
+    const formControls = {...this.state.formControls} //Копия state
+    const control = {...formControls[controlName]}
 
     control.value = event.target.value
     control.touched = true
@@ -116,7 +139,7 @@ export default class Auth extends Component {
 
           <form onSubmit={this.submitHandler} className={classes.AuthForm}>
 
-            { this.renderInputs() }
+            {this.renderInputs()}
 
             <Button
               type="success"

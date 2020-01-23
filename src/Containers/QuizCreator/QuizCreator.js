@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import classes from './QuizCreator.module.css'
+import axios from '../../axios/axios-quiz'
 import Button from "../../Components/UI/Button/Button"
 import Input from "../../Components/UI/Input/Input"
 import Select from "../../Components/UI/Select/Select";
@@ -69,11 +70,23 @@ export default class QuizCreator extends Component {
     })
   }
 
-  createQuizHandler = (event) => {
+  createQuizHandler = async (event) => {
     event.preventDefault()
 
-    console.log(this.state.quiz)
-    // !Тут будет обращение к бэку, сохранение в БД!
+    try {
+      await axios.post('/quizes.json', this.state.quiz)
+
+      this.setState({ // Обнуление состояния
+        quiz: [],
+        isFormValid: false,
+        rightAnswerId: 1,
+        formControls: createFormControls()
+      })
+
+    } catch (e) {
+      console.log(e)
+    }
+
   }
 
   changeHandler = (value, controlName) => {
