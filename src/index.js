@@ -24,7 +24,7 @@ const store = createStore(
 
 const app = (
   <Provider store={store}>
-    <BrowserRouter>
+    <BrowserRouter basename={'/react-min-quiz/'}>
       <App/>
     </BrowserRouter>
   </Provider>
